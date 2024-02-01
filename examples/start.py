@@ -188,6 +188,7 @@ def start_api_service(sandbox_host=DEFAULT_BIND_HOST):
             "/usr/local/nebula/scripts/nebula.service start all",
             "/usr/local/nebula/scripts/nebula.service status all",
             "sleep 2",
+            "nebula-console --port 9669 -u root -e 'ADD HOSTS 127.0.0.1:9779;'",
             '''curl -X PUT -H "Content-Type: application/json" -d'{"heartbeat_interval_secs":"2"}' -s "http://127.0.0.1:19559/flags"''',
             '''curl -X PUT -H "Content-Type: application/json" -d'{"heartbeat_interval_secs":"2"}' -s "http://127.0.0.1:19669/flags"''',
             '''curl -X PUT -H "Content-Type: application/json" -d'{"heartbeat_interval_secs":"2"}' -s "http://127.0.0.1:19779/flags"''',

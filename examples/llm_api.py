@@ -564,7 +564,7 @@ def run_model_worker(
     kwargs["worker_address"] = fschat_model_worker_address(model_name)
     model_path = kwargs.get("model_path", "")
     kwargs["model_path"] = model_path
-    # kwargs["gptq_wbits"] = 4 # int4 模型试用这个参数
+    kwargs["gptq_wbits"] = 4 # int4 模型试用这个参数
 
     app = create_model_worker_app(log_level=log_level, **kwargs)
     _set_app_event(app, started_event)
