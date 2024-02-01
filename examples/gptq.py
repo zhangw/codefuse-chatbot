@@ -27,6 +27,7 @@ class GptqConfig:
 
 
 def load_quant_by_autogptq(model):
+    """
     # qwen-72b-int4  use these code
     from modelscope import AutoTokenizer, AutoModelForCausalLM
     # Note: The default behavior now has injection attack prevention off.
@@ -36,12 +37,13 @@ def load_quant_by_autogptq(model):
         trust_remote_code=True
     ).eval()
     return model, tokenizer
+    """
     # codellama-34b-int4  use these code
-    # from auto_gptq import AutoGPTQForCausalLM, BaseQuantizeConfig
-    # tokenizer = AutoTokenizer.from_pretrained(model_name, use_fast=False, trust_remote_code=True)
-    # model = AutoGPTQForCausalLM.from_quantized(model, inject_fused_attention=False,trust_remote_code=True,
-    #         inject_fused_mlp=False,use_cuda_fp16=True,disable_exllama=False,device_map='auto')
-    # return model, tokenizer
+    from auto_gptq import AutoGPTQForCausalLM, BaseQuantizeConfig
+    tokenizer = AutoTokenizer.from_pretrained(model, use_fast=False, trust_remote_code=True)
+    model = AutoGPTQForCausalLM.from_quantized(model, inject_fused_attention=False,trust_remote_code=True,
+             inject_fused_mlp=False,use_cuda_fp16=True,disable_exllama=False,device_map='auto',use_safetensors=False)
+    return model, tokenizer
 
 def load_gptq_quantized(model_name, gptq_config: GptqConfig):
     print("Loading GPTQ quantized model...")
@@ -97,3 +99,4 @@ def find_gptq_ckpt(gptq_config: GptqConfig):
 
     print("Error: gptq checkpoint not found")
     sys.exit(1)
+

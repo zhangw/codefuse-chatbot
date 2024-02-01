@@ -44,6 +44,7 @@ base_url = "http://127.0.0.1:{}"
 os.environ['PATH'] = os.environ.get("PATH", "") + os.pathsep
 log_verbose = True
 
+logger.error(f"llm_model_dict: {llm_model_dict}")
 
 def set_httpx_timeout(timeout=60.0):
     import httpx
@@ -260,6 +261,7 @@ def create_model_worker_app(log_level: str = "INFO", **kwargs) -> FastAPI:
         setattr(args, k, v)
 
     logger.error(f"可用模型有哪些: {args.model_names}")
+    logger.error(f"kwargs参数是: {kwargs}")
 
     if worker_class := kwargs.get("langchain_model"): #Langchian支持的模型不用做操作
         from fastchat.serve.base_model_worker import app
@@ -276,6 +278,7 @@ def create_model_worker_app(log_level: str = "INFO", **kwargs) -> FastAPI:
     # 本地模型
     else:
         from configs.model_config import VLLM_MODEL_DICT
+        logger.error(f"VLLM_MODEL_DICT: {VLLM_MODEL_DICT}")
         # if kwargs["model_names"][0] in VLLM_MODEL_DICT and args.infer_turbo == "vllm":
         if kwargs["model_names"][0] in VLLM_MODEL_DICT:
             import fastchat.serve.vllm_worker
@@ -328,6 +331,7 @@ def create_model_worker_app(log_level: str = "INFO", **kwargs) -> FastAPI:
                 setattr(args, k, v)
 
             engine_args = AsyncEngineArgs.from_cli_args(args)
+            logger.error(f"离线模型调用vllm的参数: {args}, {engine_args}")
             engine = AsyncLLMEngine.from_engine_args(engine_args)
 
             worker = VLLMWorker(
@@ -355,7 +359,7 @@ def create_model_worker_app(log_level: str = "INFO", **kwargs) -> FastAPI:
             args.load_8bit = False
             args.cpu_offloading = None
             args.gptq_ckpt = None
-            args.gptq_wbits = 16
+            args.gptq_wbits = 4
             args.gptq_groupsize = -1
             args.gptq_act_order = False
             args.awq_ckpt = None
@@ -377,6 +381,7 @@ def create_model_worker_app(log_level: str = "INFO", **kwargs) -> FastAPI:
                         f"Larger --num-gpus ({args.num_gpus}) than --gpus {args.gpus}!"
                     )
                 os.environ["CUDA_VISIBLE_DEVICES"] = args.gpus
+            logger.error(f"离线模型调用fastchat.ModelWorker的参数: {args}")
             gptq_config = GptqConfig(
                 ckpt=args.gptq_ckpt or args.model_path,
                 wbits=args.gptq_wbits,
@@ -968,3 +973,4 @@ if __name__ == "__main__":
 # )
 # # print the completion
 # print(completion.choices[0].message.content)
+
