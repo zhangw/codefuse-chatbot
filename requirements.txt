@@ -3,7 +3,8 @@ openai==0.28.1
 sentence_transformers
 fschat==0.2.33
 transformers>=4.31.0
-torch~=2.0.0
+# pip install torch==2.2.0+cu121 -f https://download.pytorch.org/whl/torch_stable.html
+torch==2.2.0+cu121
 fastapi~=0.99.1
 nltk~=3.8.1
 uvicorn~=0.23.1
@@ -51,7 +52,10 @@ jieba
 # protobuf==3.20.*
 # transformers_stream_generator
 # einops
-auto-gptq
+
+# pip install "git+https://github.com/AutoGPTQ/AutoGPTQ.git@v0.6.0"
+auto-gptq==0.6.0+cu121
+
 # optimum
 # modelscope
 
