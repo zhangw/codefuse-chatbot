@@ -49,8 +49,8 @@ jieba
 
 # qwen model
 # protobuf==3.20.*
-# transformers_stream_generator
-# einops
+transformers_stream_generator
+einops
 # auto-gptq
 # optimum
 # modelscope
