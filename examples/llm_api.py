@@ -357,7 +357,7 @@ def create_model_worker_app(log_level: str = "INFO", **kwargs) -> FastAPI:
             args.load_8bit = False
             args.cpu_offloading = None
             args.gptq_ckpt = None
-            args.gptq_wbits = 4
+            args.gptq_wbits = 16
             args.gptq_groupsize = -1
             args.gptq_act_order = False
             args.awq_ckpt = None
@@ -562,7 +562,7 @@ def run_model_worker(
     kwargs["worker_address"] = fschat_model_worker_address(model_name)
     model_path = kwargs.get("model_path", "")
     kwargs["model_path"] = model_path
-    kwargs["gptq_wbits"] = 4 # int4 模型试用这个参数
+    #kwargs["gptq_wbits"] = 4 # int4 模型试用这个参数
 
     app = create_model_worker_app(log_level=log_level, **kwargs)
     _set_app_event(app, started_event)
