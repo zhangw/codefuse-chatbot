@@ -68,7 +68,8 @@ def start_docker(client, script_shs, ports, image_name, container_name, mounts=N
         command="bash",
         mounts=mounts,
         name=container_name,
-        mem_limit="8g",
+        mem_limit="32g",
+        memswap_limit="32g",
         # device_requests=[DeviceRequest(count=-1, capabilities=[['gpu']])],
         # network_mode="host",
         ports=ports,
@@ -151,7 +152,7 @@ def start_api_service(sandbox_host=DEFAULT_BIND_HOST):
         logger.info("start container service")
         check_process("api.py", do_stop=True)
         check_process("sdfile_api.py", do_stop=True)
-        check_process("sdfile_api.py", do_stop=True)
+        check_process("llm_api.py", do_stop=True)
         check_process("webui.py", do_stop=True)
         mount = Mount(
             type='bind',
@@ -188,11 +189,12 @@ def start_api_service(sandbox_host=DEFAULT_BIND_HOST):
             "/usr/local/nebula/scripts/nebula.service start all",
             "/usr/local/nebula/scripts/nebula.service status all",
             "sleep 2",
+            "nebula-console --port 9669 -u root -e 'ADD HOSTS 127.0.0.1:9779;'",
             '''curl -X PUT -H "Content-Type: application/json" -d'{"heartbeat_interval_secs":"2"}' -s "http://127.0.0.1:19559/flags"''',
             '''curl -X PUT -H "Content-Type: application/json" -d'{"heartbeat_interval_secs":"2"}' -s "http://127.0.0.1:19669/flags"''',
             '''curl -X PUT -H "Content-Type: application/json" -d'{"heartbeat_interval_secs":"2"}' -s "http://127.0.0.1:19779/flags"''',
 
-            "pip install zdatafront-sdk-python==0.1.2 -i https://artifacts.antgroup-inc.cn/simple",
+            "#pip install zdatafront-sdk-python==0.1.2 -i https://artifacts.antgroup-inc.cn/simple",
 
             "pip install jieba",
             "pip install duckduckgo-search",
