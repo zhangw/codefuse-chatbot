@@ -5,7 +5,7 @@ WORKDIR /home/user
 COPY ./requirements.txt /home/user/docker_requirements.txt
 
 RUN apt-get update
-RUN apt-get install -y python3 pip git git-lfs wget iputils-ping telnetd net-tools vim tcpdump libgl1-mesa-glx libglib2.0-0
+RUN apt-get install -y python3 pip git git-lfs wget iputils-ping telnetd net-tools vim tcpdump iproute2 lsof ngrep libgl1-mesa-glx libglib2.0-0
 RUN ln -s /usr/bin/python3 /usr/bin/python
 # RUN echo telnet stream tcp nowait telnetd /usr/sbin/tcpd /usr/sbin/in.telnetd /etc/inetd.conf
 # RUN service inetutils-inetd start
