@@ -34,7 +34,7 @@ except:
 
 # add your openai key
 OPENAI_API_BASE = "http://openai.com/v1/chat/completions"
-os.environ["API_BASE_URL"] = OPENAI_API_BASE
+os.environ["API_BASE_URL"] = "http://127.0.0.1:18888/v1"
 os.environ["OPENAI_API_KEY"] = "sk-xx"
 openai.api_key = "sk-xx"
 # os.environ["OPENAI_PROXY"] = "socks5h://127.0.0.1:13659"
@@ -154,7 +154,6 @@ llm_model_dict = {
 # 建议使用chat模型，不要使用base，无法获取正确输出
 VLLM_MODEL_DICT = {
  'chatglm2-6b':  "THUDM/chatglm-6b",
- 'devops-7b': "codefuse-ai/CodeFuse-DevOps-Model-7B-Chat",
  }
 # 以下模型经过测试可接入，配置仿照上述即可
 # 'codellama_34b', 'Baichuan2-13B-Base', 'Baichuan2-13B-Chat', 'baichuan2-7b-base', 'baichuan2-7b-chat', 
