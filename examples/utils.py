@@ -41,5 +41,5 @@ def get_model_worker_config(
             config["model_path_exists"] = True
         config["device"] = llm_device
 
-    # logger.debug(f"config: {config}")
+    logger.error(f"config: {config}")
     return config
