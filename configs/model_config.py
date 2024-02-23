@@ -106,7 +106,7 @@ llm_model_dict = {
     },
     "devops-7b":{
         "local_model_path": "codefuse-ai/CodeFuse-DevOps-Model-7B-Chat",
-        "api_base_url": "http://localhost:20002/v1",  # "name"修改为fastchat服务中的"api_base_url"
+        "api_base_url": "http://localhost:18888/v1",  # "name"修改为fastchat服务中的"api_base_url"
         "api_key": "EMPTY" 
     },
     # 以下模型经过测试可接入，配置仿照上述即可
@@ -154,6 +154,7 @@ llm_model_dict = {
 # 建议使用chat模型，不要使用base，无法获取正确输出
 VLLM_MODEL_DICT = {
  'chatglm2-6b':  "THUDM/chatglm-6b",
+ 'devops-7b': "codefuse-ai/CodeFuse-DevOps-Model-7B-Chat",
  }
 # 以下模型经过测试可接入，配置仿照上述即可
 # 'codellama_34b', 'Baichuan2-13B-Base', 'Baichuan2-13B-Chat', 'baichuan2-7b-base', 'baichuan2-7b-chat', 
